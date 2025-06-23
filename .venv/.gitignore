@@ -1,0 +1,4 @@
+train_model.py
+.venv/
+svd_model.pkl
+upload_model.py
