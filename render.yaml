@@ -3,9 +3,5 @@ services:
     name: anime-recommender
     env: docker
     plan: free
-    buildCommand: ""
-    startCommand: python main.py
+    branch: master
     repo: https://github.com/dpb3k/anime-recommender
-    envVars:
-      - key: FLASK_ENV
-        value: production
