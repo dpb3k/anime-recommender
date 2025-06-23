@@ -1,10 +1,11 @@
 services:
   - type: web
     name: anime-recommender
-    env: python
+    env: docker
     plan: free
     buildCommand: ""
     startCommand: python main.py
+    repo: https://github.com/dpb3k/anime-recommender
     envVars:
       - key: FLASK_ENV
         value: production
