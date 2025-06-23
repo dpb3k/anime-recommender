@@ -19,7 +19,16 @@ reader = Reader(rating_scale=(1, 10))
 data = Dataset.load_from_df(ratings_df[["user_id", "anime_id", "rating"]], reader)
 trainset = data.build_full_trainset()
 import joblib
-svd_model = joblib.load("svd_model.pkl")
+from huggingface_hub import hf_hub_download
+import os
+
+model_path = "svd_model.pkl"
+
+if not os.path.exists(model_path):
+    model_path = hf_hub_download(repo_id="tyfulks/animerec", filename="svd_model.pkl")
+
+svd_model = joblib.load(model_path)
+
 
 
 # Create anime_id <-> index mappings
