@@ -6,8 +6,8 @@ from surprise import SVD, Dataset, Reader
 from surprise.model_selection import train_test_split
 
 # Load anime metadata
-anime_df = pd.read_csv(r"C:\Users\dennis\Documents\coding\app\sampledata\anime.csv").dropna(subset=["genre"])
-ratings_df = pd.read_csv(r"C:\Users\dennis\Documents\coding\app\sampledata\rating.csv")
+anime_df = pd.read_csv(r"anime.csv").dropna(subset=["genre"])
+ratings_df = pd.read_csv(r"rating.csv")
 ratings_df = ratings_df[ratings_df["rating"] > 0]
 
 # Setup TF-IDF for genres
