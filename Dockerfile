@@ -1,25 +1,23 @@
 FROM python:3.10-slim
 
-# Install build dependencies
+# System dependencies for scikit-surprise
 RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
-    python3-dev \
     build-essential \
-    && apt-get clean
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Copy project files
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy your app code
 COPY . .
 
-# Install Python dependencies
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-# Expose the Flask port
+# Expose port and run the server
 EXPOSE 5000
-
-# Run the app
 CMD ["python", "main.py"]
