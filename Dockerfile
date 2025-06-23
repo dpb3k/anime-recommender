@@ -1,18 +1,25 @@
-# Use official Python 3.10 base image
 FROM python:3.10-slim
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    python3-dev \
+    build-essential \
+    && apt-get clean
 
 # Set working directory
 WORKDIR /app
 
-# Copy app files
+# Copy project files
 COPY . .
 
-# Install dependencies
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Expose port
+# Expose the Flask port
 EXPOSE 5000
 
-# Start the app
+# Run the app
 CMD ["python", "main.py"]
