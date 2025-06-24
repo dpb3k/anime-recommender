@@ -5,8 +5,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 import joblib
 from huggingface_hub import hf_hub_download
 import os
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["100 per day", "10 per minute"]
+)
 
 @app.route("/recommend")
 def recommend():
