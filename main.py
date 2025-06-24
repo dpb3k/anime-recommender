@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import joblib
 from huggingface_hub import hf_hub_download
+import os
 
 app = Flask(__name__)
 
@@ -24,7 +25,8 @@ def recommend():
     anime_id_to_index = {aid: idx for idx, aid in enumerate(anime_df["anime_id"])}
     anime_name_to_id = dict(zip(anime_df["name"], anime_df["anime_id"]))
 
-    model_path = hf_hub_download(repo_id="your-username/anime-model", filename="svd_model.pkl")
+    hf_token = os.environ.get("HF_TOKEN")
+    model_path = hf_hub_download(repo_id="tyfulks/animerec", filename="svd_model.pkl", token=hf_token)
     svd_model = joblib.load(model_path)
 
     if query not in anime_name_to_id:
