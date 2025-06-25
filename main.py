@@ -7,11 +7,13 @@ from huggingface_hub import hf_hub_download
 import os
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import redis
 
 app = Flask(__name__)
 
 limiter = Limiter(
-    get_remote_address,
+    key_func=get_remote_address,
+    storage_uri=os.environ["REDIS_URL"],
     app=app,
     default_limits=["100 per day", "10 per minute"]
 )
